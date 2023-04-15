@@ -1,6 +1,7 @@
 import { useState, useEffect } from "preact/hooks";
 import { Description, Navbar, Result, Footer } from "./components";
 import { Item } from "../generateData";
+import axios from "axios";
 
 export function App() {
   const [filter, setFilter] = useState("");
@@ -9,37 +10,42 @@ export function App() {
   const [drops, setDrops] = useState([]);
   const [result, setResult] = useState([]);
 
-  const getInfo = () => {
+  const getInfo = async () => {
     let info = JSON.parse(localStorage.getItem("info") as string);
     let drops = JSON.parse(localStorage.getItem("drops") as string);
 
     setLoading(true);
 
-    fetch("/data/info.json")
-      .then((response) => response.json())
-      .then((data) => {
-        if (info?.hash !== data.hash || !drops) {
-          getDrops();
-        } else {
-          setLoading(false);
-        }
+    try {
+      const response = await axios.get("/data/info.json");
+      const data = response.data;
 
-        setAppInfo(data);
-        localStorage.setItem("info", JSON.stringify(data));
-      })
-      .catch(() => {
+      if (info?.hash !== data.hash || !drops) {
+        getDrops();
+      } else {
         setLoading(false);
-      });
+      }
+
+      setAppInfo(data);
+      localStorage.setItem("info", JSON.stringify(data));
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
   };
 
-  const getDrops = () => {
-    fetch("/data/drops.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setDrops(data);
-        localStorage.setItem("drops", JSON.stringify(data));
-        setLoading(false);
-      });
+  const getDrops = async () => {
+    try {
+      const response = await axios.get("/data/drops.json");
+      const data = response.data;
+
+      setDrops(data);
+      localStorage.setItem("drops", JSON.stringify(data));
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
   };
 
   const searchItem = (e: Event) => {
