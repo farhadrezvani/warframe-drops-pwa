@@ -8,6 +8,7 @@ export default defineConfig({
     preact(),
     VitePWA({
       registerType: "autoUpdate",
+      injectRegister: "auto",
       includeAssets: [
         "robots.txt",
         "assets/favicon.ico",
@@ -34,6 +35,9 @@ export default defineConfig({
             type: "image/png",
           },
         ],
+      },
+      devOptions: {
+        enabled: true,
       },
     }),
   ],

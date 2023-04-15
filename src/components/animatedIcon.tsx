@@ -1,6 +1,7 @@
 import { animated, useSpring } from "@react-spring/web";
+import { Color } from "../hooks/useDarkMode";
 
-const AnimatedIcon = ({ colorTheme }) => {
+const AnimatedIcon = ({ colorTheme }: { colorTheme: Color }) => {
   const properties = {
     dark: {
       r: 9,

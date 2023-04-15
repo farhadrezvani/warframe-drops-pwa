@@ -1,4 +1,4 @@
-const Readme = () => {
+const Description = () => {
   return (
     <section class="text-justify bg-white border border-stone-300/50 hover:bg-white/75 dark:hover:bg-stone-50/10 p-4 rounded-lg scale-[0.975] hover:scale-100 transition duration-300 dark:bg-stone-800 dark:border-stone-600/25">
       <img class="mx-auto mb-4" src="/assets/favicon.svg" width="164" />
@@ -25,4 +25,4 @@ const Readme = () => {
   );
 };
 
-export default Readme;
+export default Description;

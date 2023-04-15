@@ -1,9 +1,11 @@
 import { useState, useEffect } from "preact/hooks";
 
+export type Color = "dark" | "light";
+
 const useDarkMode = () => {
-  const userTheme = localStorage.getItem("theme") || "dark";
-  const [theme, setTheme] = useState(userTheme);
-  const colorTheme = theme === "light" ? "dark" : "light";
+  const userTheme: Color = (localStorage.getItem("theme") as Color) || "dark";
+  const [theme, setTheme] = useState<Color>(userTheme);
+  const colorTheme: Color = theme === "light" ? "dark" : "light";
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -12,7 +14,7 @@ const useDarkMode = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  return [colorTheme, setTheme];
+  return [colorTheme, setTheme] as const;
 };
 
 export default useDarkMode;

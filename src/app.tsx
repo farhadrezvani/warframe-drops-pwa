@@ -1,5 +1,6 @@
 import { useState, useEffect } from "preact/hooks";
-import { Readme, Navbar, Result, Footer } from "./components";
+import { Description, Navbar, Result, Footer } from "./components";
+import { Item } from "../generateData";
 
 export function App() {
   const [filter, setFilter] = useState("");
@@ -9,8 +10,8 @@ export function App() {
   const [result, setResult] = useState([]);
 
   const getInfo = () => {
-    let info = JSON.parse(localStorage.getItem("info"));
-    let drops = JSON.parse(localStorage.getItem("drops"));
+    let info = JSON.parse(localStorage.getItem("info") as string);
+    let drops = JSON.parse(localStorage.getItem("drops") as string);
 
     setLoading(true);
 
@@ -41,28 +42,32 @@ export function App() {
       });
   };
 
-  const searchItem = (e) => {
-    if (e.length >= 3) {
-      setFilter(e);
+  const searchItem = (e: Event) => {
+    if (e.target instanceof HTMLInputElement) {
+      let itemName = e.target.value;
 
-      let data = drops.filter((item) =>
-        item.name.toLowerCase().includes(e.toLowerCase())
-      );
-      setResult(data);
-    }
-    if (e.length == 0) {
-      setFilter("");
-      setResult([]);
+      if (itemName.length >= 3) {
+        setFilter(itemName);
+
+        let data = drops.filter((item: Item) =>
+          item.name.toLowerCase().includes(itemName.toLowerCase())
+        );
+        setResult(data);
+      }
+      if (itemName.length == 0) {
+        setFilter("");
+        setResult([]);
+      }
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     if (window.navigator.onLine) {
       getInfo();
     }
 
-    let drops = JSON.parse(localStorage.getItem("drops"));
-    let info = JSON.parse(localStorage.getItem("info"));
+    let drops = JSON.parse(localStorage.getItem("drops") as string);
+    let info = JSON.parse(localStorage.getItem("info") as string);
 
     setDrops(drops);
     setAppInfo(info);
@@ -78,7 +83,7 @@ export function App() {
         refresh={getInfo}
       />
       <main class="max-w-3xl mx-auto p-4 sm:p-6 md:p-8">
-        {!filter && <Readme />}
+        {!filter && <Description />}
         <Result filter={filter} result={result} />
       </main>
       <Footer />

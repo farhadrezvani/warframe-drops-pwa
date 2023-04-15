@@ -1,6 +1,12 @@
 import ResultList from "./resultList";
+import { Item } from "../../generateData";
 
-const Result = ({ filter, result }) => {
+interface ResultProps {
+  filter: string;
+  result: Item[];
+}
+
+const Result = ({ filter, result }: ResultProps) => {
   return (
     <section class="flex flex-col">
       <ul role="list" class="flex flex-col space-y-3">

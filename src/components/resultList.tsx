@@ -1,4 +1,6 @@
-const ResultList = ({ name, place, rarity, chance }) => {
+import { Item } from "../../generateData";
+
+const ResultList = ({ name, place, rarity, chance }: Item) => {
   return (
     <li class="flex justify-between bg-white border border-stone-300/50 hover:bg-white/75 dark:hover:bg-stone-50/10 p-4 rounded-lg scale-[0.975] hover:scale-100 transition duration-300 dark:bg-stone-800 dark:border-stone-600/25">
       <div>

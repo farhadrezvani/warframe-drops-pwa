@@ -2,7 +2,21 @@ import Search from "./search";
 import AnimatedIcon from "./animatedIcon";
 import useDarkMode from "../hooks/useDarkMode";
 
-const Navbar = ({ onInput, filter, loading, lastUpdate, refresh }) => {
+interface NavbarProps {
+  onInput: (e: Event) => void;
+  filter: string;
+  loading: boolean;
+  lastUpdate: string;
+  refresh: () => void;
+}
+
+const Navbar = ({
+  onInput,
+  filter,
+  loading,
+  lastUpdate,
+  refresh,
+}: NavbarProps) => {
   const [colorTheme, setTheme] = useDarkMode();
 
   const toggleDarkMode = () => {
@@ -69,7 +83,7 @@ const Navbar = ({ onInput, filter, loading, lastUpdate, refresh }) => {
                       viewBox="0 0 24 24"
                       stroke="currentColor"
                       stroke-width="2"
-                      class={loading && "animate-spin"}
+                      class={loading ? "animate-spin" : ""}
                     >
                       <path
                         stroke-linecap="round"
