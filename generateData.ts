@@ -11,7 +11,7 @@ export interface Item {
   place: string;
   name: string;
   rarity: string;
-  chance: string;
+  chance: number;
 }
 
 let arr: Item[] = [];
@@ -45,7 +45,9 @@ const parseTable = (tr: HTMLElement[]) => {
           : // @ts-ignore
             element.firstChild.nextSibling.text,
         rarity: rarity[0],
-        chance: drop ? (chance * (drop / 100)).toFixed(2) : chance.toFixed(2),
+        chance: drop
+          ? Number((chance * (drop / 100)).toFixed(2))
+          : Number(chance.toFixed(2)),
       };
 
       arr.push(item);
@@ -89,8 +91,8 @@ try {
     parseTable(tr);
   });
 
-  arr = arr.filter((e) => !isNaN(Number(e.chance)));
-  let drops = arr.sort((a, b) => Number(b.chance) - Number(a.chance));
+  arr = arr.filter((e) => !isNaN(e.chance));
+  let drops = arr.sort((a, b) => b.chance - a.chance);
 
   console.log("Data updated.");
   console.log("Drops:", arr.length);
