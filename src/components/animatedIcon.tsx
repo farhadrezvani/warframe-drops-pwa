@@ -25,6 +25,7 @@ const AnimatedIcon = ({ colorTheme }: { colorTheme: Color }) => {
   const svgContainerProps = useSpring({
     transform,
     config: properties.springConfig,
+    backfaceVisibility: "hidden",
   });
   const centerCircleProps = useSpring({ r, config: properties.springConfig });
   const maskedCircleProps = useSpring({
