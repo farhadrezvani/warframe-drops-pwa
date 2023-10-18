@@ -1,10 +1,10 @@
 import axios from "axios";
 import crypto from "crypto";
-import { readFileSync, writeFileSync, existsSync } from "fs";
-import { parse, HTMLElement } from "node-html-parser";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { HTMLElement, parse } from "node-html-parser";
 
 const url =
-  "https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html";
+  "https://warframe-web-assets.nyc3.cdn.digitaloceanspaces.com/uploads/cms/hnfvc0o3jnfvc873njb03enrf56.html";
 const dir = "./public/data";
 
 export interface Item {
